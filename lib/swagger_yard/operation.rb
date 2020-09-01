@@ -30,8 +30,8 @@ module SwaggerYard
             operation.add_response(tag)
           when "summary"
             operation.summary = tag.text
-          when "extensions"
-            operation.add_extensions(tag)
+          when "extension"
+            operation.add_extension(tag)
           when "example"
             if tag.name && !tag.name.empty?
               operation.response(tag.name).example = tag.text
@@ -175,11 +175,15 @@ module SwaggerYard
 
     ##
     # Example:
-    # @extensions [x-internal: true, x-beta: true]
-    def add_extensions(tag)
-      extension_regex = /\[([\w-]*\:\s[\w-]*)(?:\,\s([\w-]*\:\s[\w-]*))*\]/
-      extension_matches = tag.text.match(extension_regex).captures.compact
-      @extensions = extension_matches.map { |c| c.split(":").map(&:strip) }.to_h
+    # @extension x-internal: true
+    def add_extension(tag)
+      key, value = tag.text.split(":").map(&:strip)
+
+      unless key.start_with?("x-")
+        SwaggerYard.log.warn("extension '#{tag.text}' must being with 'x-'")
+      end
+
+      @extensions[key] = value
     end
 
     private

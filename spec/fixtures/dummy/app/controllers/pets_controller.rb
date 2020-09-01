@@ -36,7 +36,7 @@ class PetsController < ApplicationController
   # delete a Pet
   # @path [DELETE] /pets/{id}
   # @parameter id [integer] The ID for the Pet
-  # @extensions [x-internal: true]
+  # @extension x-internal: true
   # @response 204 successfully deleted
   # @response 404 Not Found
   # @response 401 Unauthorized

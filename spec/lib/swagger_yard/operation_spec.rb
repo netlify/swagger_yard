@@ -130,7 +130,9 @@ RSpec.describe SwaggerYard::Operation do
   end
 
   context "with an extensions tag" do
-    let(:tags) { [yard_tag("@path [GET] /hello"), yard_tag("@extensions [x-internal: true, x-displayName: User]")] }
+    let(:tags) { [yard_tag("@path [GET] /hello"),
+                  yard_tag("@extension x-internal: true"),
+                  yard_tag("@extension x-displayName: User")] }
 
     subject(:hash) { operation.extended_attributes }
 
