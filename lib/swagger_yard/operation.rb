@@ -177,7 +177,7 @@ module SwaggerYard
     # Example:
     # @extension x-internal: true
     def add_extension(tag)
-      key, value = tag.text.split(":").map(&:strip)
+      key, value = tag.text.split(":", 2).map(&:strip)
 
       unless key.start_with?("x-")
         SwaggerYard.log.warn("extension '#{tag.text}' must being with 'x-'")
