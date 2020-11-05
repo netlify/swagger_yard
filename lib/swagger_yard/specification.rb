@@ -54,7 +54,7 @@ module SwaggerYard
     end
 
     def api_groups
-      @api_groups ||= parse_controllers
+      @api_groups ||= parse_controllers.select { |group| group.path_items.present? }
     end
 
     def parse_models
