@@ -7,6 +7,7 @@ module SwaggerYard
   class Operation
     attr_accessor :description, :ruby_method
     attr_writer :summary
+    attr_writer :operation_id
     attr_reader :path, :http_method
     attr_reader :parameters
     attr_reader :path_item, :responses, :extensions
@@ -30,6 +31,8 @@ module SwaggerYard
             operation.add_response(tag)
           when "summary"
             operation.summary = tag.text
+          when "operation_id"
+            operation.operation_id = tag.text
           when "extension"
             operation.add_extension(tag)
           when "example"
@@ -48,6 +51,7 @@ module SwaggerYard
     def initialize(path_item)
       @path_item      = path_item
       @summary        = nil
+      @operation_id  = nil
       @description    = ""
       @parameters     = []
       @default_response = nil
@@ -60,7 +64,7 @@ module SwaggerYard
     end
 
     def operation_id
-      "#{api_group.resource}-#{ruby_method}"
+      @operation_id || "#{api_group.resource}-#{ruby_method}"
     end
 
     def api_group

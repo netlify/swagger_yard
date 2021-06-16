@@ -23,7 +23,7 @@ RSpec.describe SwaggerYard::OpenAPI do
 
     it { is_expected.to_not be_empty }
 
-    its(:keys) { are_expected.to eq(["get", "delete"]) }
+    its(:keys) { are_expected.to eq(["get", "put", "delete"]) }
 
     its(["get", "summary"]) { is_expected.to eq("return a Pet") }
 
@@ -37,6 +37,10 @@ RSpec.describe SwaggerYard::OpenAPI do
 
     its(["get", "security"]) { is_expected.to eq([{'header_x_application_api_key' => []}])}
 
+    its(["put", "summary"]) { is_expected.to eq("update a Pet") }
+
+    its(["put", "operationId"]) { is_expected.to eq("updatePet") }
+
     its(["delete", "summary"]) { is_expected.to eq("delete a Pet") }
 
     its(["delete", "operationId"]) { is_expected.to eq("Pet-destroy") }
@@ -46,7 +50,7 @@ RSpec.describe SwaggerYard::OpenAPI do
     context "when ignoring internal paths" do
       before { SwaggerYard.config.ignore_internal = true }
 
-      its(:keys) { are_expected.to eq(["get"]) }
+      its(:keys) { are_expected.to eq(["get", "put"]) }
     end
   end
 
