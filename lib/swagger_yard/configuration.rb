@@ -23,6 +23,7 @@ module SwaggerYard
       @security_definitions = {}
       @external_schema = {}
       @ignore_internal = false
+      @default_summary_to_description = true
     end
 
     def external_schema(mappings = nil)

@@ -52,6 +52,12 @@ RSpec.describe SwaggerYard::OpenAPI do
 
       its(:keys) { are_expected.to eq(["get", "put"]) }
     end
+
+    context "when not defaulting summary to description" do
+      before { SwaggerYard.config.default_summary_to_description = false }
+
+      its(["put", "summary"]) { is_expected.to be_nil }
+    end
   end
 
   context "#/paths//pets" do

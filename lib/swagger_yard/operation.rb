@@ -60,7 +60,7 @@ module SwaggerYard
     end
 
     def summary
-      @summary || description.split("\n\n").first || ""
+      @summary || default_summary
     end
 
     def operation_id
@@ -197,6 +197,14 @@ module SwaggerYard
     private
     def parse_path_params(path)
       path.scan(/\{([^\}]+)\}/).flatten
+    end
+
+    def default_summary
+      if SwaggerYard.config.default_summary_to_description
+        description.split("\n\n").first || ""
+      else
+        ""
+      end
     end
   end
 end
