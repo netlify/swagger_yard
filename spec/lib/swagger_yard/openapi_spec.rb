@@ -151,9 +151,10 @@ RSpec.describe SwaggerYard::OpenAPI do
   end
 
   context "#/tag_groups" do
-    subject { openapi["x-tagGroups"] }
+    subject { openapi["x-tagGroups"][0] }
 
-    it { is_expected.to eq([{:name=>"Test Tag Group", :tags=>["Pet", "Transport"]}])}
+    its([:name]) { is_expected.to eq("Test Tag Group")}
+    its([:tags]) { is_expected.to match_array(["Pet", "Transport"])}
   end
 
   context "#/components/securitySchemes" do
